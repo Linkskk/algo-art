@@ -1,43 +1,39 @@
 import PIL.Image as image
-import cmath
-import random
+iterations = 50
+max_error = 1e-3
+h = 1e-3
 
-f = lambda x: x ** 3 - 1
+coefficients = []
+for i in range(9):
+    response = int(input(f"Please enter the coefficient of the {8 - i}th power of the polynomial.\n"))
+    coefficients.append(response)
 
+#defining the function, f(x), and its derivative, q(x)
+f = lambda x: coefficients[0]*x**8 + coefficients[1]*x**7 + coefficients[2]*x**6 \
+              + coefficients[3]*x**5 + coefficients[4]*x**4 + coefficients[5]*x**3 + coefficients[6]*x**2 + \
+              coefficients[7]*x**1 + coefficients[8]
 
-def newton(z, f, max_iter=100, t=1e-6):
-    h = 0.00001
-    for i in range(max_iter):
-        step = h * f(z) / (f(z + h) - f(z))
-        if abs(step) < t:
-            return z
-        z -= step
-    return z
-
-
-def pixel_color(point, roots, colors):
-    c = roots[0]
-    for i in range(len(roots)):
-        if abs(point - roots[i]) < abs(c):
-            c = roots[i]
-    return colors[roots.index(c)]
+q = lambda x: (f(x + complex(h,h)) - f(x))/ complex(h,h)
+print("Generating the fractal....")
 
 
-roots = [cmath.rect(1, i * cmath.pi / 3) for i in range(3)]
-colors = [(0,0,0), (255,250,240), (255,255,255)]
-
-image_size = 10000
-half_size = image_size // 2
-im = image.new(mode='RGB', size=(image_size, image_size))
+image_x = 500
+image_y = 500
+im = image.new(mode='RGB', size=(image_x, image_y))
 pixels = im.load()
 
-for i in range(image_size):
-    for j in range(image_size):
-        i0 = (i - half_size) / half_size
-        j0 = (j - half_size) / half_size
-        point = complex(i0, j0)
-        counter = newton(point, f)
-        c = pixel_color(counter, roots, colors)
-        pixels[i, j] = c
+for x in range(image_x):
+    for y in range(image_y):
+        x0 = 2*(x - image_x)/ image_x + 1
+        y0 = 2*(y - image_y)/ image_y + 1
+        z = complex(x0, y0)
+        for i in range(iterations):
+            z0 = z - f(z) / q(z)
+            if abs(z0 - z) < max_error:
+                break
+            z = z0
+        im.putpixel((x,y), (255 - 10*i,255 - 10*i,255 - 10*i))
 
+print("Here is your fractal!")
 im.show()
+
