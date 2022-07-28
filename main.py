@@ -1,5 +1,5 @@
 import PIL.Image as image
-iterations = 50
+iterations = 100
 max_error = 1e-3
 h = 1e-3
 
