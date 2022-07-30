@@ -10,6 +10,7 @@ class Fractal():
     def __init__(self, function):
         self.function = function
         self.derivative = lambda x: (self.function(x + h) - self.function(x)) / h
+        self.second_derivative = lambda x: (self.derivative(x + h) - self.derivative(x)) / h
         self.image_x = 1000
         self.image_y = 1000
         self.image = image.new(mode='RGB', size=(self.image_x, self.image_y))
@@ -31,3 +32,13 @@ class Fractal():
             x = x0
         return x, count
 
+    def halley(self, x):
+        count = 0
+        for i in range(iterations):
+            x0 = x - (2*self.function(x)*self.derivative(x))/ \
+                 (2*(self.derivative(x))**2 - self.function(x)*self.second_derivative(x))
+            count += 1
+            if abs(x0 - x) < limit:
+                break
+            x = x0
+        return x, count
