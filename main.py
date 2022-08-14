@@ -1,16 +1,15 @@
 from fractal import Fractal
+import random
 
-f = lambda x: x**3 - 1
 
-fractal = Fractal(f)
-darkness = 10
+fractal = Fractal()
+list_of_functions = fractal.list
+function = random.choice(list_of_functions)
 
-print("Generating fractal...")
-for x in range(fractal.image_x):
-    for y in range(fractal.image_y):
-        z = fractal.interpolate_value(x,y)
-        z0, c = fractal.newton(z)
-        fractal.image.putpixel((x,y), (255 - darkness * c,) * 3)
 
-fractal.image.show()
+x = input("Do you want to create a fractal? (y/n) \n")
+if x.lower() == "y":
+    print(f"Your function is: " + function["name"])
+    y = input("Choose the method: (Newton/Ostrowski/Steffensen/Halley)\n")
+    fractal.render(y, function["function"])
 
