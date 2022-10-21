@@ -30,7 +30,7 @@ class Numerical():
         return h, h(x)
 
     def newton(self, x, f):
-        for i in range(self.iterations):
+        for i in range(1, self.iterations + 1):
             try:
                 dx = self.derivative(f, x)[1]
                 if abs(dx) < self.epsilon:
@@ -44,7 +44,7 @@ class Numerical():
         return i
 
     def steffensen(self, x0, f):
-        for i in range(self.iterations):
+        for i in range(1, self.iterations + 1):
             try:
                 x1 = f(x0)
                 x2 = f(x1)
@@ -61,7 +61,7 @@ class Numerical():
         return i
 
     def ostrowski(self, x, f):
-        for i in range(self.iterations):
+        for i in range(1, self.iterations + 1):
             try:
                 dx = self.derivative(f, x)[1]
                 if abs(dx) < self.epsilon:
@@ -79,7 +79,7 @@ class Numerical():
         return i
 
     def halley(self, x, f):
-        for i in range(self.iterations):
+        for i in range(1, self.iterations + 1):
             try:
                 dx = self.derivative(f, x)[1]
                 ddx = self.derivative(f, x)[1]
@@ -92,3 +92,4 @@ class Numerical():
             except OverflowError:
                 break  
         return i
+
