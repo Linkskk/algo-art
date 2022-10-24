@@ -24,7 +24,7 @@ def create(arr):
     ax = fig.add_axes([0, 0, 1, 1], aspect=1)
     ax.axis("off")
     ax.imshow(arr, cmap="inferno")
-    fig.savefig("newton.png")
+    fig.savefig("fractal.png")
     plt.show()
 
 if __name__ == "__main__":
