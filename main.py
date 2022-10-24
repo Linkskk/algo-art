@@ -27,13 +27,6 @@ def create(arr):
     fig.savefig("newton.png")
     plt.show()
 
-
-def conv(arr):
-    count = np.count_nonzero(arr == numerical.iterations)
-    return 1 - count/(1000**2)
-
-
-
 if __name__ == "__main__":
     x = input("Do you want to create a fractal? (y/n) \n")
     if x.lower() == "y":
@@ -41,5 +34,4 @@ if __name__ == "__main__":
         y = input("Choose the method: (Newton/Ostrowski/Steffensen/Halley)\n")
         data = render(y, test_function["function"])
         create(data)
-        print(f"The probability of convergence of the points with {y}'s method is {conv(data)}")
     
