@@ -9,6 +9,8 @@ class Numerical():
         self.epsilon = 1e-5
         self.delta = 1e-8
         self.complex_delta = complex(self.delta, self.delta)
+       
+        #initalises a list of functions on which the root finding methods can work on
            
         self.list = [{"name": "(x^2)tanh(x) - 1", "function": lambda x: (x**2)*c.tanh(x) - 1}, 
         {"name": "cosh(x) - 1",  "function": lambda x: c.cosh(x) - 1},
@@ -17,19 +19,22 @@ class Numerical():
         {"name": "(x^3+x^2+x)cos(sin(x))cos(x)^2-2", 
         "function": lambda x: (x**3 + x**2 + x)*c.cos(c.sin(x))*(c.cos(x)**2) - 2},
         {"name": "(x^2)arctan(x) - x^5 ",  "function": lambda x: x**2 * c.atan(x) - x**5}]
-
+ 
     
     def derivative(self, f, x):
+        # finds the derivative of a function
         g = lambda x: (f(x + self.complex_delta) - f(x))/ self.complex_delta
         return g, g(x)
     
 
     def second_derivative(self, f, x):
+        # finds the second derivative of a function
         g = self.derivative(f, x)[1]
         h = lambda x: (g(x + self.complex_delta) - g(x))/ self.complex_delta
         return h, h(x)
 
     def newton(self, x, f):
+        
         for i in range(1, self.iterations + 1):
             try:
                 dx = self.derivative(f, x)[1]
