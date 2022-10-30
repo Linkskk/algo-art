@@ -49,7 +49,7 @@ class Numerical():
                 break        
         return i
 
-
+    #performs a mobius transform on all the points in the complex plane 
     def mobius(self, x, a = 0, b = -1, c = 1, d = 1):
         return (a*x + b) / (c*x + d)
 
