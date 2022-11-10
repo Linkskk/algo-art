@@ -13,12 +13,9 @@ if not sys.warnoptions:
 
 
 def derivative(x, f):
-    # cdef double delta = 1e-8
     return (f(x + complex(delta, delta)) - f(x))/complex(delta, delta)
 
 def newton(x, f):
-    # cdef int iterations = 100
-    # cdef double tolerance = 1e-10 
     cdef int i
     for i in range(iterations):
         try:
@@ -35,8 +32,6 @@ def newton(x, f):
     return i
 
 def steffensen(x0, f):
-    # cdef int iterations = 100
-    # cdef double tolerance = 1e-10 
     cdef int i
     for i in range(iterations):
         try:
@@ -54,8 +49,6 @@ def steffensen(x0, f):
             break
     return i
 
-# def mobius(complex a,complex b,complex c,complex d, x):
-#     return x if abs(a*d - b*c) == 0 else (a*x + b)/(c*x + d)
 
 def generate_grid(double xa, double xb, double ya, double yb, int pixels):
     x = np.linspace(xa, xb, pixels)
