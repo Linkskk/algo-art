@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import cmath as c
 import sys
 
-iterations = 500
+iterations = 500 (#iterations limit)
 tolerance = 1e-10
 delta = 1e-8
 
@@ -13,9 +13,13 @@ if not sys.warnoptions:
 
 
 def derivative(x, f):
+    # Calculates the derivative of a given function at a specified point
     return (f(x + complex(delta, delta)) - f(x))/complex(delta, delta)
 
 def newton(x, f):
+    # Applies the Newton Raphson method for a fixed number of iterations at a specified point in the complex plane. There are two possible cases:    
+    # 1 -  process converges at a point - return required number of iterations, which is less than or equal to the iterations limit   
+    # 2 -  process doesn't converge - we either diverge to ± infinity, or oscillate between points indefinitelty - return iterations limit    
     cdef int i
     for i in range(iterations):
         try:
@@ -32,6 +36,8 @@ def newton(x, f):
     return i
 
 def steffensen(x0, f):
+    # Applies Steffenson's method for a fixed number of iterations at a specified point, returning the number of iterations 
+    # Aitken's delta squared process is used to accelerate convergence    
     cdef int i
     for i in range(iterations):
         try:
@@ -51,12 +57,14 @@ def steffensen(x0, f):
 
 
 def generate_grid(double xa, double xb, double ya, double yb, int pixels):
+    #generates the complex plane   
     x = np.linspace(xa, xb, pixels)
     y = np.linspace(ya, yb, pixels)
     xx, yy = np.meshgrid(x,y)
     return xx + yy*1j
 
 def render(function, address):
+    # creates a piece of art by assigning colors based on the number of iterations returned from the applied method
     data = generate_grid(1, -1, 1, -1, 1000)
     im = np.frompyfunc(newton,2, 1)(data, function).astype(float)
     fig = plt.figure(figsize=(1000 /200.0, 1000 / 200.0), dpi=500)
