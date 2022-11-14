@@ -1,3 +1,3 @@
 # Algorithmic art
 
-This project contains code that generates abstract art using Newton's method in the complex plane.
+This project contains code that generates abstract art using numerical methods in the complex plane.
