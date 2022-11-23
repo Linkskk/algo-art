@@ -16,12 +16,12 @@ if not sys.warnoptions:
     
     
 def f(complex x):
-    #creates a function in terms of x. Changing the function will, unsurprisingly, alter the art created 
+    #creates a function in terms of x. Changing the function will, unsurprisingly, alter the art created. 
     return x**3 - 1
 
 
 def derivative(complex x):
-    # Calculates the derivative of a given function at a specified point
+    # Calculates the derivative of a given function at a specified point.
     cdef double complex delta = 1e-8 + 1e-8j
     return (f(x + delta) - f(x))/delta
 
