@@ -22,7 +22,8 @@ def f(complex x):
 
 def derivative(complex x):
     # Calculates the derivative of a given function at a specified point
-    return (f(x + complex(delta, delta)) - f(x))/complex(delta, delta)
+    cdef double complex delta = 1e-8 + 1e-8j
+    return (f(x + delta) - f(x))/delta
 
 
 def newton(complex x):
