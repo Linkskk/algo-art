@@ -8,11 +8,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cmath as c
 import sys
-
-
-if not sys.warnoptions:
-    import warnings
-    warnings.simplefilter("ignore")
     
     
 def f(complex x):
