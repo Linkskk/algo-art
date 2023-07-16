@@ -41,30 +41,6 @@ def newton(complex x):
             break   
     return i
 
-
-def steffensen(complex x0):
-    # Applies Steffenson's method for a fixed number of iterations at a specified point, returning the number of iterations 
-    # Aitken's delta squared process is used to accelerate convergence    
-    cdef int iterations = 100
-    cdef double tolerance = 1e-10 
-    cdef int i
-    for i in range(iterations):
-        try:
-            x1 = f(x0)
-            x2 = f(x1)
-            delta = x1 - x0
-            delta_sqr = x0 - (2 * x1) + x2
-            if abs(delta_sqr) < tolerance:
-                break
-            aitkenX = x0 - ((delta ** 2) / delta_sqr)
-            if abs(aitkenX - x2) < tolerance:
-                break
-            x0 = aitkenX
-        except OverflowError:
-            break
-    return i
-
-
 def generate_grid(double xa, double xb, double ya, double yb, int pixels):
     #generates the complex plane   
     cdef x = np.linspace(xa, xb, pixels)
